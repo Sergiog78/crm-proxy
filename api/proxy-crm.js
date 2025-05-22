@@ -25,6 +25,6 @@ export default async function handler(req, res) {
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+  console.error("Errore nel proxy:", error); // <--- log utile per capire cosa succede
+  res.status(500).json({ error: error.message });
 }
