@@ -1,4 +1,6 @@
-export default async function handler(req, res) {
+// sostituisci questa riga
+// export default async function handler(req, res) {
+module.exports = async function (req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Only POST allowed" });
   }
@@ -10,21 +12,22 @@ export default async function handler(req, res) {
     dtda,
     dta,
     snote,
-    id_dippsicodiagnostica
+    id_dippsicodiagnostica,
   };
 
   try {
     const response = await fetch("https://novamentis.ns0.it/novamentis_crm/webservice/wbsPizzaApp.asmx/getInfoUtente_app", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json; charset=utf-8"
+        "Content-Type": "application/json; charset=utf-8",
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {
-  console.error("Errore nel proxy:", error); // <--- log utile per capire cosa succede
-  res.status(500).json({ error: error.message });
-}
+    console.error("Errore nel proxy:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
